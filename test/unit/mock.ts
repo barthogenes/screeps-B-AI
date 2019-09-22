@@ -1,10 +1,10 @@
 export const Game = {
-  creeps: [],
-  rooms: [],
-  spawns: {},
-  time: 12345
+	creeps: [],
+	rooms: [],
+	spawns: {},
+	time: 12345
 };
 
 export const Memory = {
-  creeps: []
+	creeps: []
 };
