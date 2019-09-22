@@ -1,7 +1,7 @@
-import { roleHarvester } from "creeperRoles/harvester";
-import { roleUpgrader } from "creeperRoles/upgrader";
-import { roleSpawner } from "structureRoles/spawner";
-import { ErrorMapper } from "utils/ErrorMapper";
+import { roleHarvester } from 'creeperRoles/harvester';
+import { roleUpgrader } from 'creeperRoles/upgrader';
+import { roleSpawner } from 'structureRoles/spawner';
+import { ErrorMapper } from 'utils/ErrorMapper';
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
@@ -24,10 +24,10 @@ export const loop = ErrorMapper.wrapLoop(() => {
 			continue;
 		}
 		try {
-			if (memory.role === "harvester") {
+			if (memory.role === 'harvester') {
 				roleHarvester.run(creep);
 			}
-			if (memory.role === "upgrader") {
+			if (memory.role === 'upgrader') {
 				roleUpgrader.run(creep);
 			}
 		} catch (e) {
@@ -42,7 +42,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
 			continue;
 		}
 		try {
-			if (memory.role === "spawner") {
+			if (memory.role === 'spawner') {
 				roleSpawner.run(spawner);
 			}
 		} catch (e) {
@@ -58,14 +58,14 @@ export const loop = ErrorMapper.wrapLoop(() => {
 	}
 
 	if (Game.time % 13 === 0) {
-		console.log("Bucket :" + Game.cpu.bucket);
-		console.log("Used :" + Game.cpu.getUsed());
+		console.log('Bucket :' + Game.cpu.bucket);
+		console.log('Used :' + Game.cpu.getUsed());
 	}
 
 	Memory.rooms = Memory.rooms || {};
 
 	if (Game.cpu.getUsed() > 50) {
-		console.log("Used a lot of cpu : ", Game.cpu.getUsed(), Game.time);
+		console.log('Used a lot of cpu : ', Game.cpu.getUsed(), Game.time);
 	}
 
 	if (error) {

@@ -22,5 +22,6 @@
 	},
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true
-	}
+	},
+	"npm.scriptExplorerAction": "run"
 }

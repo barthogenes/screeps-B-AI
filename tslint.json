@@ -25,6 +25,11 @@
 			true,
 			"tabs"
 		],
+		"quotemark": [
+			true,
+			"single"
+		],
+		"trailing-comma": false,
 		"variable-name": [
 			true,
 			"ban-keywords",

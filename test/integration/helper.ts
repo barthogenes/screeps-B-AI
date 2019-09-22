@@ -1,6 +1,6 @@
-const { readFileSync } = require('fs');
-const _ = require('lodash');
-const { ScreepsServer, stdHooks } = require('screeps-server-mockup');
+import { readFileSync } from 'fs';
+import 'lodash';
+import { ScreepsServer, stdHooks, User } from 'screeps-server-mockup';
 const DIST_MAIN_JS = 'dist/main.js';
 
 /*
@@ -9,8 +9,8 @@ const DIST_MAIN_JS = 'dist/main.js';
  * manipulating the terrain and game state.
  */
 class IntegrationTestHelper {
-	private _server;
-	private _player;
+	private _server?: ScreepsServer;
+	private _player?: User;
 
 	get server() {
 		return this._server;
@@ -20,7 +20,7 @@ class IntegrationTestHelper {
 		return this._player;
 	}
 
-	async beforeEach() {
+	public async beforeEach() {
 		this._server = new ScreepsServer();
 
 		// reset world but add invaders and source keepers bots
@@ -39,8 +39,8 @@ class IntegrationTestHelper {
 		await this._server.start();
 	}
 
-	async afterEach() {
-		await this._server.stop();
+	public async afterEach() {
+		await this._server!.stop();
 	}
 }
 
