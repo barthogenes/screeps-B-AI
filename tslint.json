@@ -1,21 +1,36 @@
 {
-  "rulesDirectory": "tslint-plugin-prettier",
-  "extends" : [
-    "tslint:recommended",
-    "tslint-config-prettier"
-  ],
-  "rules": {
-    "forin": false,
-    "interface-name": [true, "never-prefix"],
-    "member-ordering": [false],
-    "no-console": [false],
-    "no-namespace": [true, "allow-declarations"],
-    "variable-name": [
-      true,
-      "ban-keywords",
-      "check-format",
-      "allow-pascal-case",
-      "allow-leading-underscore"
-    ]
-  }
+	"rulesDirectory": "node_modules/tslint-eslint-rules/dist/rules",
+	"extends": [
+		"tslint:recommended"
+	],
+	"rules": {
+		"forin": false,
+		"interface-name": [
+			true,
+			"never-prefix"
+		],
+		"member-ordering": [
+			false
+		],
+		"no-console": [
+			false
+		],
+		"no-namespace": [
+			true,
+			"allow-declarations"
+		],
+		"arrow-return-shorthand": true,
+		"align": true,
+		"indent": [
+			true,
+			"tabs"
+		],
+		"variable-name": [
+			true,
+			"ban-keywords",
+			"check-format",
+			"allow-pascal-case",
+			"allow-leading-underscore"
+		]
+	}
 }
