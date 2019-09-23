@@ -29,6 +29,7 @@
 			true,
 			"single"
 		],
+		"object-literal-sort-keys": false,
 		"trailing-comma": false,
 		"variable-name": [
 			true,
