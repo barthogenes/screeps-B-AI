@@ -1,6 +1,6 @@
-import { roleHarvester } from 'creeperRoles/harvester';
-import { roleUpgrader } from 'creeperRoles/upgrader';
-import { roleSpawner } from 'structureRoles/spawner';
+import { harvester } from 'Creeps/Harvester';
+import { upgrader } from 'Creeps/Upgrader';
+import { StateData } from 'fluent-behavior-tree';
 import profiler from 'screeps-profiler';
 import { roleSpawner } from 'StructureRoles/spawner';
 import { ErrorMapper } from 'Utils/ErrorMapper';
@@ -28,10 +28,10 @@ const mloop = () => {
 		}
 		try {
 			if (memory.role === 'harvester') {
-				roleHarvester.run(creep);
+				harvester.tick(new StateData(Game.time, creep));
 			}
 			if (memory.role === 'upgrader') {
-				roleUpgrader.run(creep);
+				upgrader.tick(new StateData(Game.time, creep));
 			}
 		} catch (e) {
 			error = e;
