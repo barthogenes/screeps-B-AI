@@ -19,6 +19,7 @@
 			true,
 			"allow-declarations"
 		],
+		"space-before-function-paren": false,
 		"arrow-return-shorthand": true,
 		"align": true,
 		"indent": [

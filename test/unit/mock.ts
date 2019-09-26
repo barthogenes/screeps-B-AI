@@ -1,4 +1,13 @@
 export const Game: Game = {
+	profiler: {
+		background() { },
+		email() { },
+		output() { },
+		profile() { },
+		reset() { },
+		restart() { },
+		stream() { }
+	},
 	cpu: {
 		bucket: 10000,
 		limit: 20,
