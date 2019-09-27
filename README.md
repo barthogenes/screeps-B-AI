@@ -1,6 +1,10 @@
-# Screeps Typescript Starter
+[![made-for-VSCode](https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg)](https://code.visualstudio.com/)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/barthogenes/screeps-b-ai)
+![GitHub](https://img.shields.io/github/license/barthogenes/screeps-b-ai)
 
-Screeps Typescript Starter is a starting point for a Screeps AI written in Typescript. It provides everything you need to start writing your AI whilst leaving `main.ts` as empty as possible.
+# My Screeps AI
+
+Based on the [screeps-typescript-starter](https://github.com/screepers/screeps-typescript-starter) template.
 
 ## Basic Usage
 
@@ -8,14 +12,11 @@ You will need:
 
  - [Node.JS](https://nodejs.org/en/download) (>= 8.0.0)
  - A Package Manager ([Yarn](https://yarnpkg.com/en/docs/getting-started) or [npm](https://docs.npmjs.com/getting-started/installing-node))
- - Rollup CLI (Optional, install via `npm install -g rollup`) 
+ - Rollup CLI (Optional, install via `npm install -g rollup`)
  - Python 2 (for node-gyp, [Python 3 is not supported](https://github.com/nodejs/node-gyp/issues/193))
- - Build tools (`apt install build-essential` for Ubuntu, [Visual Studio](https://www.visualstudio.com/vs/) for Windows, etc) 
+ - Build tools (`apt install build-essential` for Ubuntu, [Visual Studio](https://www.visualstudio.com/vs/) for Windows, etc)
 
-
-Download the latest source [here](https://github.com/screepers/screeps-typescript-starter/archive/master.zip) and extract it to a folder.
-
-Open the folder in your terminal and run your package manager to install install the required packages and TypeScript declaration files:
+Open the repo folder in your terminal and run your package manager to install install the required packages and TypeScript declaration files:
 
 ```bash
 # npm
@@ -47,12 +48,8 @@ The type definitions for Screeps come from [typed-screeps](https://github.com/sc
 
 ## Documentation
 
-We've also spent some time reworking the documentation from the ground-up, which is now generated through [Gitbooks](https://www.gitbook.com/). Includes all the essentials to get you up and running with Screeps AI development in TypeScript, as well as various other tips and tricks to further improve your development workflow.
-
-Maintaining the docs will also become a more community-focused effort, which means you too, can take part in improving the docs for this starter kit.
-
-To visit the docs, [click here](https://screepers.gitbooks.io/screeps-typescript-starter/).
+To visit the [screeps-typescript-starter](https://github.com/screepers/screeps-typescript-starter) docs, [click here](https://screepers.gitbooks.io/screeps-typescript-starter/).
 
 ## Contributing
 
-Issues, Pull Requests, and contribution to the docs are welcome! See our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+Issues, Pull Requests, and contribution to the docs are welcome! See the [Contributing Guidelines](CONTRIBUTING.md) for more details.

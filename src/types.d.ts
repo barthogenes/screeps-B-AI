@@ -2,19 +2,15 @@
 
 // memory extension samples
 interface CreepMemory {
-  role: string;
-  room: string;
-  working: boolean;
+	[key: string]: any
+	role: string
 }
 
-interface Memory {
-  uuid: number;
-  log: any;
-}
+declare const __PROFILER_ENABLED__: boolean;
 
 // `global` extension samples
 declare namespace NodeJS {
-  interface Global {
-    log: any;
-  }
+	interface Global {
+		log: any;
+	}
 }
