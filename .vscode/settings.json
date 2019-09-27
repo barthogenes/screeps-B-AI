@@ -23,5 +23,6 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true
 	},
-	"npm.scriptExplorerAction": "run"
+	"npm.scriptExplorerAction": "run",
+	"debug.node.autoAttach": "off"
 }

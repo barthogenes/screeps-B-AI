@@ -1,12 +1,16 @@
-import { roleHarvester } from 'creeperRoles/harvester';
-import { roleUpgrader } from 'creeperRoles/upgrader';
-import { roleSpawner } from 'structureRoles/spawner';
-import { ErrorMapper } from 'utils/ErrorMapper';
+import { harvester } from 'Creeps/Harvester';
+import { upgrader } from 'Creeps/Upgrader';
+import { StateData } from 'fluent-behavior-tree';
+import profiler from 'screeps-profiler';
+import { roleSpawner } from 'StructureRoles/spawner';
+import { ErrorMapper } from 'Utils/ErrorMapper';
+import { profilerUtils } from 'Utils/ProfilerUtils';
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
-export const loop = ErrorMapper.wrapLoop(() => {
-	console.log(`Current game tick is ${Game.time}`);
+const mloop = () => {
+
+	profilerUtils.profile();
 
 	// Automatically delete memory of missing creeps
 	for (const name in Memory.creeps) {
@@ -16,7 +20,6 @@ export const loop = ErrorMapper.wrapLoop(() => {
 	}
 
 	let error: any = null;
-
 	for (const name in Game.creeps) {
 		const creep = Game.creeps[name];
 		const memory = creep.memory;
@@ -25,10 +28,10 @@ export const loop = ErrorMapper.wrapLoop(() => {
 		}
 		try {
 			if (memory.role === 'harvester') {
-				roleHarvester.run(creep);
+				harvester.tick(new StateData(Game.time, creep));
 			}
 			if (memory.role === 'upgrader') {
-				roleUpgrader.run(creep);
+				upgrader.tick(new StateData(Game.time, creep));
 			}
 		} catch (e) {
 			error = e;
@@ -37,23 +40,13 @@ export const loop = ErrorMapper.wrapLoop(() => {
 
 	for (const name in Game.spawns) {
 		const spawner = Game.spawns[name];
-		const memory = spawner.memory as any;
 		if (!spawner.isActive()) {
 			continue;
 		}
 		try {
-			if (memory.role === 'spawner') {
-				roleSpawner.run(spawner);
-			}
+			roleSpawner.run(spawner);
 		} catch (e) {
 			error = e;
-		}
-	}
-
-	// Automatically delete memory of missing creeps
-	for (const name in Memory.creeps) {
-		if (!(name in Game.creeps)) {
-			delete Memory.creeps[name];
 		}
 	}
 
@@ -71,4 +64,14 @@ export const loop = ErrorMapper.wrapLoop(() => {
 	if (error) {
 		throw error;
 	}
-});
+};
+
+function ploop() {
+	if (!!__PROFILER_ENABLED__) {
+		profiler.wrap(mloop);
+	} else {
+		mloop();
+	}
+}
+
+export const loop = ErrorMapper.wrapLoop(ploop);
