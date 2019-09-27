@@ -2,8 +2,7 @@
 	"name": "screeps-typescript-starter",
 	"version": "3.0.0",
 	"description": "",
-	"main": "index.js",
-	"//": "If you add or change the names of destinations in screeps.json, make sure you update these scripts to reflect the changes",
+	"private": true,
 	"scripts": {
 		"lint": "tslint -p tsconfig.json \"src/**/*.ts\"",
 		"build": "rollup -c",
@@ -19,14 +18,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/screepers/screeps-typescript-starter.git"
+		"url": "git+https://github.com/barthogenes/screeps-B-AI.git"
 	},
-	"author": "",
+	"author": "Bart Hogenes",
 	"license": "Unlicense",
 	"bugs": {
-		"url": "https://github.com/screepers/screeps-typescript-starter/issues"
+		"url": "https://github.com/barthogenes/screeps-B-AI/issues"
 	},
-	"homepage": "https://github.com/screepers/screeps-typescript-starter#readme",
+	"homepage": "https://github.com/barthogenes/screeps-B-AI#readme",
 	"devDependencies": {
 		"@types/chai": "^4.1.6",
 		"@types/lodash": "^3.10.1",
