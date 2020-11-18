@@ -11,7 +11,10 @@
     "experimentalDecorators": true,
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false
+	"allowUnreachableCode": false,
+	"forceConsistentCasingInFileNames": true,
+	"importHelpers": true,
+	"removeComments": true
   },
   "exclude": [
     "node_modules"
