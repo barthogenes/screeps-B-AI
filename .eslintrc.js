@@ -45,7 +45,6 @@ module.exports = {
     "@typescript-eslint/space-within-parens": ["off", "never"],
     "@typescript-eslint/unified-signatures": "error",
     "arrow-parens": ["off", "as-needed"],
-    camelcase: "error",
     complexity: "off",
     "dot-notation": "error",
     "eol-last": "off",
