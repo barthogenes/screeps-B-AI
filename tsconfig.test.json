@@ -1,6 +1,16 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "CommonJs"
-  }
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "CommonJs",
+		"typeRoots": [
+			"./node_modules/@types",
+			"./libs"
+		],
+		"types": [
+			"screeps",
+			"mocha",
+			"screepsCustomizations",
+			"Traveler"
+		],
+	}
 }

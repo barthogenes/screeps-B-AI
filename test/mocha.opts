@@ -1,3 +1,4 @@
+--require test/setup-screeps-globals.js
 --require test/setup-mocha.js
 --require ts-node/register
 --require tsconfig-paths/register
