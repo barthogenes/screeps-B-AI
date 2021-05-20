@@ -5,10 +5,7 @@
 	],
 	"rules": {
 		"forin": false,
-		"interface-name": [
-			true,
-			"never-prefix"
-		],
+		"interface-name": true,
 		"member-ordering": [
 			false
 		],
@@ -30,6 +27,7 @@
 			true,
 			"single"
 		],
+		"one-line": false,
 		"object-literal-sort-keys": false,
 		"trailing-comma": false,
 		"variable-name": [

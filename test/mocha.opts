@@ -1,5 +1,7 @@
---require test/setup-node.js
+--require test/setup-screeps-globals.js
+--require test/setup-mocha.js
 --require ts-node/register
+--require tsconfig-paths/register
 --ui bdd
 
 --reporter spec
@@ -10,3 +12,4 @@
 
 --recursive
 --timeout 5000
+--exit

@@ -14,25 +14,10 @@
 				"${workspaceFolder}/test/mocha.opts",
 				"--timeout",
 				"999999",
-				"${workspaceFolder}/dist/test-unit.bundle.js"
+				"${workspaceFolder}/dist/test-unit.bundle.js",
 			],
 			"internalConsoleOptions": "openOnSessionStart",
-			"preLaunchTask": "npm: pretest-unit"
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "Integration test",
-			"program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-			"args": [
-				"--opts",
-				"${workspaceFolder}/test/mocha.opts",
-				"--timeout",
-				"999999",
-				"${workspaceFolder}/dist/test-integration.bundle.js"
-			],
-			"internalConsoleOptions": "openOnSessionStart",
-			"preLaunchTask": "npm: pretest-integration"
+			"preLaunchTask": "test-unit"
 		}
 	]
 }

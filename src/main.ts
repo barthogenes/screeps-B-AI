@@ -1,77 +1,58 @@
-import { harvester } from 'Creeps/Harvester';
-import { upgrader } from 'Creeps/Upgrader';
-import { StateData } from 'fluent-behavior-tree';
-import profiler from 'screeps-profiler';
-import { roleSpawner } from 'StructureRoles/spawner';
-import { ErrorMapper } from 'Utils/ErrorMapper';
-import { profilerUtils } from 'Utils/ProfilerUtils';
+import { Harvester } from 'behaviors/impl/harvest';
+import { BuildOrGetEnergy, GetBuildTreeFunctions } from 'behaviortrees/build';
+import { HarvesterTree } from 'behaviortrees/HarvesterTree';
+import {
+	GetUpgradeTreeFunctions,
+	UpgradeOrGetEnergy
+} from 'behaviortrees/impl/upgrade';
+import { RunSpawnTree } from 'behaviortrees/spawning';
+import { Run } from 'runner/runner';
+import { ErrorMapper } from 'utils/ErrorMapper';
+import { GarbageCollect } from 'utils/Memory';
+import '../libs/screepsExtensions';
+import '../libs/Traveler/Traveler';
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
-const mloop = () => {
-
-	profilerUtils.profile();
-
-	// Automatically delete memory of missing creeps
-	for (const name in Memory.creeps) {
-		if (!(name in Game.creeps)) {
-			delete Memory.creeps[name];
-		}
-	}
-
-	let error: any = null;
-	for (const name in Game.creeps) {
-		const creep = Game.creeps[name];
-		const memory = creep.memory;
-		if (creep.spawning) {
-			continue;
-		}
-		try {
-			if (memory.role === 'harvester') {
-				harvester.tick(new StateData(Game.time, creep));
-			}
-			if (memory.role === 'upgrader') {
-				upgrader.tick(new StateData(Game.time, creep));
-			}
-		} catch (e) {
-			error = e;
-		}
-	}
+export const loop = ErrorMapper.wrapLoop(() => {
+	console.log(`Current game tick is ${Game.time}`);
+	GarbageCollect();
 
 	for (const name in Game.spawns) {
-		const spawner = Game.spawns[name];
-		if (!spawner.isActive()) {
+		const spawn = Game.spawns[name];
+		if (!spawn.my) {
 			continue;
 		}
-		try {
-			roleSpawner.run(spawner);
-		} catch (e) {
-			error = e;
+
+		RunSpawnTree(spawn);
+	}
+
+	for (const name in Game.creeps) {
+		const creep = Game.creeps[name];
+		if (!creep.my) {
+			continue;
+		}
+		let result: ReturnType<typeof Run>;
+		switch (creep.memory.role) {
+			case 'harvester': {
+				const tree = new HarvesterTree(creep);
+				result = Run(tree.getObject(), Harvester, tree.getTree());
+				break;
+			}
+			case 'upgrader':
+			{
+				const tree = new HarvesterTree(creep);
+				result = Run(creep, GetUpgradeTreeFunctions(), UpgradeOrGetEnergy());
+				break;
+			}
+			case 'builder':
+				result = Run(creep, GetBuildTreeFunctions(), BuildOrGetEnergy());
+				break;
+		}
+
+		if (!result.success)
+		{
+			console.log(`${creep.name} with role ${creep.memory.role} failed on task ${result.command}!`);
 		}
 	}
-
-	if (Game.time % 13 === 0) {
-		console.log('Bucket :' + Game.cpu.bucket);
-		console.log('Used :' + Game.cpu.getUsed());
-	}
-
-	Memory.rooms = Memory.rooms || {};
-
-	if (Game.cpu.getUsed() > 50) {
-		console.log('Used a lot of cpu : ', Game.cpu.getUsed(), Game.time);
-	}
-
-	if (error) {
-		throw error;
-	}
-};
-
-function ploop() {
-	if (!!__PROFILER_ENABLED__) {
-		profiler.wrap(mloop);
-	} else {
-		mloop();
-	}
-}
-
-export const loop = ErrorMapper.wrapLoop(ploop);
+});
