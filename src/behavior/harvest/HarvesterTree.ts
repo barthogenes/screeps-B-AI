@@ -1,9 +1,7 @@
-import { TreeNode } from 'runner/runner';
-import { HarvesterInfo, IHarvester } from '../behaviors/impl/harvest';
-import { ITree } from './ITree';
+import { HarvesterInfo, IHarvesterTreeImplementation } from 'behavior/harvest/IHarvesterTreeImplementation';
+import { ITree } from 'behavior/ITree';
 
-
-export class HarvesterTree implements ITree<HarvesterInfo, IHarvester>
+export class HarvesterTree
 {
 	private creep: Creep;
 	public constructor(creep: Creep)
@@ -20,11 +18,7 @@ export class HarvesterTree implements ITree<HarvesterInfo, IHarvester>
 		};
 	}
 
-	public getTree(): TreeNode<HarvesterInfo, IHarvester> {
-		return this.HarvestOrBringBack();
-	}
-
-	public HarvestOrBringBack(): TreeNode<HarvesterInfo, IHarvester>
+	public HarvestOrBringBack(): ITree<HarvesterInfo, IHarvesterTreeImplementation>
 	{
 		return {
 			type: 'selector',
@@ -47,7 +41,7 @@ export class HarvesterTree implements ITree<HarvesterInfo, IHarvester>
 		};
 	}
 
-	public TryToHarvest(): TreeNode<HarvesterInfo, IHarvester>
+	public TryToHarvest(): ITree<HarvesterInfo, IHarvesterTreeImplementation>
 	{
 		return {
 			type: 'selector',
@@ -59,7 +53,7 @@ export class HarvesterTree implements ITree<HarvesterInfo, IHarvester>
 		};
 	}
 
-	public TryToBringBack(): TreeNode<HarvesterInfo, IHarvester>
+	public TryToBringBack(): ITree<HarvesterInfo, IHarvesterTreeImplementation>
 	{
 		return {
 			type: 'selector',
@@ -70,3 +64,4 @@ export class HarvesterTree implements ITree<HarvesterInfo, IHarvester>
 		};
 	}
 }
+

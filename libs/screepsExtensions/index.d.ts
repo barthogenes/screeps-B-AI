@@ -28,8 +28,9 @@ interface SpawnMemory
 interface Creep
 {
 	getSpawn: () => StructureSpawn;
-	getAssignedSource: () => Source
-	getClosestNotFullExtension: () => StructureExtension | null
+	getAssignedSource: () => Source;
+	getClosestNotFullExtension: () => StructureExtension | null;
+	getConstructionSite: () => ConstructionSite<BuildableStructureConstant> | null;
 }
 
 interface Memory

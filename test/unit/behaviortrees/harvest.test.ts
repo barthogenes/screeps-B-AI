@@ -1,50 +1,52 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { assert } from 'chai';
-import { HarvesterTreeLeaves, HarvestOrBringBack } from '../../../src/behaviortrees/harvest';
-import { Run } from '../../../src/runner/runner';
+import { HarvesterTree } from '../../../src/behavior/harvest/HarvesterTree';
+import { HarvesterInfo, IHarvesterTreeImplementation } from '../../../src/behavior/harvest/IHarvesterTreeImplementation';
+import { TreeExecuter } from '../../../src/runner/runner';
 import { Game, Memory } from '../mock';
 
-describe('harvest', () =>
-{
-	beforeEach(() =>
-	{
+describe('harvest', () => {
+	beforeEach(() => {
 		// @ts-ignore
 		global.Game = _.clone(Game);
 		// @ts-ignore
 		global.Memory = _.clone(Memory);
 	});
 
-	describe('HarvestOrBringBack', () =>
-	{
-		it('should return false', () =>
-		{
+	describe('HarvestOrBringBack', () => {
+		it('should return false', () => {
 			// Arrange
-			const harvesterTreeFunctions: HarvesterTreeLeaves = {
-				'can I carry some more?': (creep: Creep) => false,
-				'can I drop off my stuff at the spawn?': (creep: Creep) => false
-			} as HarvesterTreeLeaves;
+			const tree = new HarvesterTree({} as Creep);
+			const treeExecuter = new TreeExecuter(
+				{} as HarvesterInfo,
+				{
+					'can I carry some more?': (info: HarvesterInfo) => false,
+					'can I drop off my stuff at the spawn?': (info: HarvesterInfo) => false
+				} as IHarvesterTreeImplementation
+			);
 
 			// Act
-			const result = Run({} as Creep, harvesterTreeFunctions, HarvestOrBringBack());
-
+			const result = treeExecuter.Run(tree.HarvestOrBringBack());
 
 			// Assert
 			assert.isFalse(result.success);
 			assert.strictEqual(result.command, 'can I drop off my stuff at the spawn?');
 		});
 
-		it('should return true', () =>
-		{
+		it('should return true', () => {
 			// Arrange
-			const harvesterTreeFunctions: HarvesterTreeLeaves = {
-				'can I carry some more?': (creep: Creep) => true,
-				'harvest': (creep: Creep) => false,
-				'move to source': (creep: Creep) => true,
-			} as HarvesterTreeLeaves;
+			const tree = new HarvesterTree({} as Creep);
+			const treeExecuter = new TreeExecuter(
+				{} as HarvesterInfo,
+				{
+					'can I carry some more?': (_info: HarvesterInfo) => true,
+					'try to harvest': (_info: HarvesterInfo) => false,
+					'move to source': (_info: HarvesterInfo) => true,
+				} as IHarvesterTreeImplementation
+			);
 
 			// Act
-			const result = Run({} as Creep, harvesterTreeFunctions, HarvestOrBringBack());
-
+			const result = treeExecuter.Run(tree.HarvestOrBringBack());
 
 			// Assert
 			assert.isTrue(result.success);
