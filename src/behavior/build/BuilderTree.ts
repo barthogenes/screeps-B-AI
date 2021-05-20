@@ -1,5 +1,5 @@
 import { ITree } from 'behavior/ITree';
-import { BuilderInfo, IBuilderTreeImplementation } from './IBuilderTreeImplementation';
+import { IBuilderInfo, IBuilderTreeImplementation } from './IBuilderTreeImplementation';
 
 export class BuilderTree {
 	private creep: Creep;
@@ -7,7 +7,7 @@ export class BuilderTree {
 		this.creep = creep;
 	}
 
-	public getObject(): BuilderInfo {
+	public getObject(): IBuilderInfo {
 		return {
 			creep: this.creep,
 			constructionSite: this.creep.getConstructionSite(),
@@ -15,7 +15,7 @@ export class BuilderTree {
 		};
 	}
 
-	public BuildOrGetEnergy(): ITree<BuilderInfo, IBuilderTreeImplementation> {
+	public BuildOrGetEnergy(): ITree<IBuilderInfo, IBuilderTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [
@@ -31,7 +31,7 @@ export class BuilderTree {
 		};
 	}
 
-	public Build(): ITree<BuilderInfo, IBuilderTreeImplementation> {
+	public Build(): ITree<IBuilderInfo, IBuilderTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [
@@ -41,7 +41,7 @@ export class BuilderTree {
 		};
 	}
 
-	public GrabEnergy(): ITree<BuilderInfo, IBuilderTreeImplementation> {
+	public GrabEnergy(): ITree<IBuilderInfo, IBuilderTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [

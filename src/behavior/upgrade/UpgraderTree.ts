@@ -1,5 +1,5 @@
 import { ITree } from 'behavior/ITree';
-import { IUpgraderTreeImplementation, UpgraderInfo } from './IUpgraderTreeImplementation';
+import { IUpgraderInfo, IUpgraderTreeImplementation } from './IUpgraderTreeImplementation';
 
 export class UpgraderTree {
 	private creep: Creep;
@@ -7,22 +7,22 @@ export class UpgraderTree {
 		this.creep = creep;
 	}
 
-	public getObject(): UpgraderInfo {
+	public getObject(): IUpgraderInfo {
 		return {
 			creep: this.creep,
 			spawn: this.creep.getSpawn(),
 		};
 	}
 
-	public BuildOrGetEnergy(): ITree<UpgraderInfo, IUpgraderTreeImplementation> {
+	public UpgradeOrGetEnergy(): ITree<IUpgraderInfo, IUpgraderTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [
 				{
 					type: 'sequence',
 					childNodes: [
-						'can I build?',
-						this.Build()
+						'can I upgrade?',
+						this.UpgradeController()
 					]
 				},
 				this.GrabEnergy()
@@ -30,17 +30,17 @@ export class UpgraderTree {
 		};
 	}
 
-	public Build(): ITree<UpgraderInfo, IUpgraderTreeImplementation> {
+	public UpgradeController(): ITree<IUpgraderInfo, IUpgraderTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [
-				'build',
-				'move to construction site'
+				'upgrade controller',
+				'move to controller'
 			]
 		};
 	}
 
-	public GrabEnergy(): ITree<UpgraderInfo, IUpgraderTreeImplementation> {
+	public GrabEnergy(): ITree<IUpgraderInfo, IUpgraderTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [

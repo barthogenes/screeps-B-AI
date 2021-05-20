@@ -6,10 +6,6 @@ export const HarvesterTreeImplementation: IHarvesterTreeImplementation =
 	{
 		return creep.store.energy < creep.store.getCapacity();
 	},
-	'am I next to my assigned source?': ( {creep, source} ) =>
-	{
-		return creep.pos.isNearTo(source);
-	},
 	'try to harvest': ({ creep, source }) =>
 	{
 		return creep.harvest(source) === OK;
@@ -29,5 +25,5 @@ export const HarvesterTreeImplementation: IHarvesterTreeImplementation =
 	'move to spawn': ({ closestNotFullExtension, creep, spawn }) =>
 	{
 		return creep.travelTo(closestNotFullExtension || spawn) === OK;
-	}
+	},
 };

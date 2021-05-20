@@ -1,14 +1,13 @@
-import { ITreeImplementation } from '../ITreeImplementation';
-
-export interface BuilderInfo {
+export interface IBuilderInfo {
 	creep: Creep;
 	constructionSite: ConstructionSite<BuildableStructureConstant> | null;
 	spawn: StructureSpawn;
 }
 
-export interface IBuilderTreeImplementation extends ITreeImplementation<BuilderInfo> {
-	'build': (info: BuilderInfo) => boolean,
-	'move to construction site': (info: BuilderInfo) => boolean,
-	'grab energy': (info: BuilderInfo) => boolean,
-	'move to spawn': (info: BuilderInfo) => boolean
+export interface IBuilderTreeImplementation {
+	'can I build?': (info: IBuilderInfo) => boolean,
+	'build': (info: IBuilderInfo) => boolean,
+	'move to construction site': (info: IBuilderInfo) => boolean,
+	'grab energy': (info: IBuilderInfo) => boolean,
+	'move to spawn': (info: IBuilderInfo) => boolean
 }

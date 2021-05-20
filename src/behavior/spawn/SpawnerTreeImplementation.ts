@@ -6,12 +6,7 @@ import { ISpawnerTreeImplementation } from './ISpawnerTreeImplementation';
 export const SpawnerTreeImplementation: ISpawnerTreeImplementation = {
 	'am I not already spawning something?': ({ spawn }) => !spawn.spawning,
 	'spawn creeps': ({ spawn }) => {
-		if (spawn.spawning) {
-			return true;
-		}
-
 		spawn.memory.allowWithdraw = spawn.store.energy > 200;
-
 		spawn.room.memory.constructionSiteToBuild = spawn.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES)?.id;
 
 		const sources = GetSourcesInRoom(spawn.room);

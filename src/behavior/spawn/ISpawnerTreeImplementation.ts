@@ -1,10 +1,9 @@
-import { ITreeImplementation } from '../ITreeImplementation';
 
-export interface SpawnerInfo {
+export interface ISpawnerInfo {
 	spawn: StructureSpawn;
 }
 
-export interface ISpawnerTreeImplementation extends ITreeImplementation<SpawnerInfo> {
-	'am I not already spawning something?': (info: SpawnerInfo) => boolean,
-	'spawn creeps': (info: SpawnerInfo) => boolean,
+export interface ISpawnerTreeImplementation extends Record<string, (input: ISpawnerInfo) => boolean> {
+	'am I not already spawning something?': (info: ISpawnerInfo) => boolean,
+	'spawn creeps': (info: ISpawnerInfo) => boolean,
 }

@@ -1,14 +1,12 @@
-import { ITreeImplementation } from '../ITreeImplementation';
-
-export interface UpgraderInfo {
+export interface IUpgraderInfo {
 	creep: Creep;
 	spawn: StructureSpawn;
 }
 
-export interface IUpgraderTreeImplementation extends ITreeImplementation<UpgraderInfo> {
-	'can I upgrade?': (info: UpgraderInfo) => boolean;
-	'upgrade controller': (info: UpgraderInfo) => boolean;
-	'move to controller': (info: UpgraderInfo) => boolean;
-	'grab energy': (info: UpgraderInfo) => boolean;
-	'move to spawn': (info: UpgraderInfo) => boolean;
+export interface IUpgraderTreeImplementation {
+	'can I upgrade?': (info: IUpgraderInfo) => boolean;
+	'upgrade controller': (info: IUpgraderInfo) => boolean;
+	'move to controller': (info: IUpgraderInfo) => boolean;
+	'grab energy': (info: IUpgraderInfo) => boolean;
+	'move to spawn': (info: IUpgraderInfo) => boolean;
 }

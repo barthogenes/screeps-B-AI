@@ -1,5 +1,5 @@
 import { ITree } from 'behavior/ITree';
-import { ISpawnerTreeImplementation, SpawnerInfo } from './ISpawnerTreeImplementation';
+import { ISpawnerInfo, ISpawnerTreeImplementation } from './ISpawnerTreeImplementation';
 
 export class SpawnerTree {
 	private spawn: StructureSpawn;
@@ -7,18 +7,18 @@ export class SpawnerTree {
 		this.spawn = spawn;
 	}
 
-	public getObject(): SpawnerInfo {
+	public getObject(): ISpawnerInfo {
 		return {
 			spawn: this.spawn
 		};
 	}
 
-	public ShouldSpawn(): ITree<SpawnerInfo, ISpawnerTreeImplementation> {
+	public ShouldSpawn(): ITree<ISpawnerInfo, ISpawnerTreeImplementation> {
 		return {
 			type: 'selector',
 			childNodes: [
 				'am I not already spawning something?',
-				'move to construction site'
+				'spawn creeps'
 			]
 		};
 	}

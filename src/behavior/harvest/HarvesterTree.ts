@@ -1,4 +1,4 @@
-import { HarvesterInfo, IHarvesterTreeImplementation } from 'behavior/harvest/IHarvesterTreeImplementation';
+import { IHarvesterInfo, IHarvesterTreeImplementation } from 'behavior/harvest/IHarvesterTreeImplementation';
 import { ITree } from 'behavior/ITree';
 
 export class HarvesterTree
@@ -9,7 +9,7 @@ export class HarvesterTree
 		this.creep = creep;
 	}
 
-	public getObject(): HarvesterInfo {
+	public getObject(): IHarvesterInfo {
 		return {
 			creep: this.creep,
 			source: this.creep.getAssignedSource(),
@@ -18,7 +18,7 @@ export class HarvesterTree
 		};
 	}
 
-	public HarvestOrBringBack(): ITree<HarvesterInfo, IHarvesterTreeImplementation>
+	public HarvestOrBringBack(): ITree<IHarvesterInfo, IHarvesterTreeImplementation>
 	{
 		return {
 			type: 'selector',
@@ -41,19 +41,18 @@ export class HarvesterTree
 		};
 	}
 
-	public TryToHarvest(): ITree<HarvesterInfo, IHarvesterTreeImplementation>
+	public TryToHarvest(): ITree<IHarvesterInfo, IHarvesterTreeImplementation>
 	{
 		return {
 			type: 'selector',
 			childNodes: [
-				'am I next to my assigned source?',
-				'harvest',
+				'try to harvest',
 				'move to source'
 			]
 		};
 	}
 
-	public TryToBringBack(): ITree<HarvesterInfo, IHarvesterTreeImplementation>
+	public TryToBringBack(): ITree<IHarvesterInfo, IHarvesterTreeImplementation>
 	{
 		return {
 			type: 'selector',

@@ -29,7 +29,7 @@ export default {
 		format: "cjs",
 		sourcemap: true
 	},
-
+	external: ['lodash'],
 	plugins: [
 		clear({ targets: ["dist"] }),
 		resolve(),

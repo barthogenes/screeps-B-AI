@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { assert } from 'chai';
 import { HarvesterTree } from '../../../src/behavior/harvest/HarvesterTree';
-import { HarvesterInfo, IHarvesterTreeImplementation } from '../../../src/behavior/harvest/IHarvesterTreeImplementation';
-import { TreeExecuter } from '../../../src/runner/runner';
+import { IHarvesterTreeImplementation } from '../../../src/behavior/harvest/IHarvesterTreeImplementation';
+import { Run } from '../../../src/runner/runner';
 import { Game, Memory } from '../mock';
 
 describe('harvest', () => {
@@ -17,16 +17,14 @@ describe('harvest', () => {
 		it('should return false', () => {
 			// Arrange
 			const tree = new HarvesterTree({} as Creep);
-			const treeExecuter = new TreeExecuter(
-				{} as HarvesterInfo,
-				{
-					'can I carry some more?': (info: HarvesterInfo) => false,
-					'can I drop off my stuff at the spawn?': (info: HarvesterInfo) => false
-				} as IHarvesterTreeImplementation
-			);
+			const treeImpl = {
+				'can I carry some more?': () => false,
+				'can I drop off my stuff at the spawn?': () => false
+			}  as unknown as IHarvesterTreeImplementation;
+			const gameObject = {};
 
 			// Act
-			const result = treeExecuter.Run(tree.HarvestOrBringBack());
+			const result = Run(tree.HarvestOrBringBack(), treeImpl, gameObject);
 
 			// Assert
 			assert.isFalse(result.success);
@@ -36,17 +34,15 @@ describe('harvest', () => {
 		it('should return true', () => {
 			// Arrange
 			const tree = new HarvesterTree({} as Creep);
-			const treeExecuter = new TreeExecuter(
-				{} as HarvesterInfo,
-				{
-					'can I carry some more?': (_info: HarvesterInfo) => true,
-					'try to harvest': (_info: HarvesterInfo) => false,
-					'move to source': (_info: HarvesterInfo) => true,
-				} as IHarvesterTreeImplementation
-			);
+			const treeImpl = {
+				'can I carry some more?': () => true,
+				'try to harvest': () => false,
+				'move to source': () => true,
+			} as unknown as IHarvesterTreeImplementation;
+			const gameObject = {};
 
 			// Act
-			const result = treeExecuter.Run(tree.HarvestOrBringBack());
+			const result = Run(tree.HarvestOrBringBack(), treeImpl, gameObject);
 
 			// Assert
 			assert.isTrue(result.success);

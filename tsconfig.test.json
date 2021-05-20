@@ -9,7 +9,7 @@
 		"types": [
 			"screeps",
 			"mocha",
-			"screepsCustomizations",
+			"screepsExtensions",
 			"Traveler"
 		],
 	}
