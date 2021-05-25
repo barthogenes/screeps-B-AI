@@ -5,7 +5,6 @@
 
 export class Traveler
 {
-
 	private static structureMatrixCache: { [roomName: string]: CostMatrix } = {};
 	private static creepMatrixCache: { [roomName: string]: CostMatrix } = {};
 	private static creepMatrixTick: number;
@@ -97,7 +96,7 @@ export class Traveler
 		{
 			if (options.movingTarget && state.destination.isNearTo(destination))
 			{
-				travelData.path += state.destination.getDirectionTo(destination);
+				travelData.path! += state.destination.getDirectionTo(destination);
 				state.destination = destination;
 			} else
 			{

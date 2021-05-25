@@ -6,6 +6,21 @@
 
 Based on the [screeps-typescript-starter](https://github.com/screepers/screeps-typescript-starter) template.
 
+Features:
+ - Built on a self made implementation of [Behavior Trees](https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php).
+ - Barebones energy harvesting.
+ - Road placement.
+ - Random extension placement.
+ - Auto-building of construction sites.
+ - Auto-controller upgrading.
+ - Automatically upgrades creeps based on the rooms max energy capability.
+
+Upcoming features:
+ - Update energy harvesting code to [Container Mining](https://wiki.screepspl.us/index.php/Static_Harvesting).
+ - Room defense.
+ - Better extension placement.
+ - Ticks to RCL 3 benchmarking.
+
 ## Basic Usage
 
 You will need:

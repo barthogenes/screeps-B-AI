@@ -10,12 +10,10 @@ import typescript from 'rollup-plugin-typescript2';
 
 let cfg;
 const dest = process.env.DEST;
-if (!dest)
-{
+if (!dest) {
 	console.log("No destination specified - code will be compiled but not uploaded");
 }
-else
-{
+else {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
 	cfg = require("./screeps.json")[dest];
 	if (cfg == null)
@@ -27,14 +25,14 @@ export default {
 	output: {
 		file: "dist/main.js",
 		format: "cjs",
-		sourcemap: true
+		sourcemap: true,
 	},
-
+	external: ['lodash'],
 	plugins: [
 		clear({ targets: ["dist"] }),
 		resolve(),
 		commonjs(),
 		typescript({ tsconfig: "./tsconfig.json" }),
-		screeps({ config: cfg, dryRun: cfg == null })
+		screeps({ config: cfg, dryRun: cfg == null }),
 	]
 }

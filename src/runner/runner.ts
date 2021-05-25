@@ -1,55 +1,54 @@
 import { ITree } from 'behavior/ITree';
-import { ITreeImplementation } from 'behavior/ITreeImplementation';
+import { isFunction } from 'lodash';
 
-export class TreeExecuter<TGameObject, TTreeImplementation extends ITreeImplementation<TGameObject>>
-{
-	private gameObject: TGameObject;
-	private treeImpl: TTreeImplementation;
+export interface IRunResult { success: boolean, command: string }
 
-	public constructor(gameObject: TGameObject, treeImpl: TTreeImplementation) {
-		this.gameObject = gameObject;
-		this.treeImpl = treeImpl;
+export function Run<TTreeImplementation, TGameObject>(
+	tree: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation,
+	treeImpl: TTreeImplementation,
+	gameObject: TGameObject
+): IRunResult {
+	let result: IRunResult = {
+		success: false,
+		command: ''
+	};
+
+	if (isLeaf(tree)) {
+		return Execute(treeImpl, gameObject, tree);
 	}
 
-	public Execute(leaf: keyof TTreeImplementation): { success: boolean, command: string } {
-		return {
-			success: this.treeImpl[leaf](this.gameObject),
-			command: leaf.toString()
-		};
-	}
-
-	public Run(rootNode: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation): { success: boolean, command: string } {
-		let result = {
-			success: false,
-			command: ''
-		};
-
-		if (this.isLeaf(rootNode)) {
-			return this.Execute(rootNode);
+	if (tree.type === 'selector') {
+		for (const childNode of tree.nodes) {
+			result = Run(childNode, treeImpl, gameObject);
+			if (result.success)
+				return result;
 		}
-
-		if (rootNode.type === 'selector') {
-			for (const childNode of rootNode.childNodes) {
-				result = this.Run(childNode);
-				if (result.success)
-					return result;
-			}
-			return result;
-		}
-
-		if (rootNode.type === 'sequence') {
-			for (const childNode of rootNode.childNodes) {
-				result = this.Run(childNode)
-				if (!result.success)
-					return result;
-			}
-			return result;
-		}
-
 		return result;
 	}
 
-	private isLeaf(node: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation): node is keyof TTreeImplementation {
-		return typeof (node) === 'string';
+	if (tree.type === 'sequence') {
+		for (const childNode of tree.nodes) {
+			result = Run(childNode, treeImpl, gameObject)
+			if (!result.success)
+				return result;
+		}
+		return result;
 	}
+
+	return result;
+}
+
+export function isLeaf<TTreeImplementation, TGameObject>(node: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation): node is keyof TTreeImplementation {
+	return typeof (node) === 'string';
+}
+
+export function Execute<TTreeImplementation, TGameObject>(treeImpl: TTreeImplementation, gameObject: TGameObject, leaf: keyof TTreeImplementation): IRunResult {
+	const treeLeafFunc = treeImpl[leaf];
+	if (!isFunction(treeLeafFunc))
+		throw new Error(`'${leaf.toString()}' is not a function on this tree!`)
+
+	return {
+		success: treeLeafFunc(gameObject) as boolean,
+		command: leaf.toString()
+	};
 }

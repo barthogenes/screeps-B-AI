@@ -8,9 +8,9 @@ export function isSpawn(structure: AnyStructure): structure is StructureSpawn
 	return (structure as StructureSpawn).structureType === 'spawn';
 }
 
-export function isExtension(structure: AnyStructure): structure is StructureExtension
+export function isExtension(structure: AnyStructure | null): structure is StructureExtension
 {
-	return (structure as StructureExtension).structureType === 'extension';
+	return (structure as StructureExtension)?.structureType === 'extension';
 }
 
 export function isController(structure: AnyStructure): structure is StructureController

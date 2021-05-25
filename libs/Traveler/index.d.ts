@@ -44,7 +44,7 @@ interface TravelToOptions
 interface TravelData
 {
 	state: any[];
-	path: string;
+	path?: string;
 }
 
 interface TravelState
@@ -57,6 +57,7 @@ interface TravelState
 
 interface Creep
 {
+	getAssignedSource: () => Source;
 	travelTo(destination: HasPos | RoomPosition, ops?: TravelToOptions): number;
 }
 
@@ -68,3 +69,4 @@ interface CreepMemory
 
 interface Coord { x: number, y: number }
 interface HasPos { pos: RoomPosition }
+
