@@ -3,24 +3,12 @@ import { isFunction } from 'lodash';
 
 export interface IRunResult { success: boolean, command: string }
 
-export function Execute<TTreeImplementation, TGameObject>(treeImpl: TTreeImplementation, gameObject: TGameObject, leaf: keyof TTreeImplementation): IRunResult {
-	const treeLeafFunc = treeImpl[leaf];
-	if (!isFunction(treeLeafFunc))
-		throw new Error(`'${leaf.toString()}' is not a function on this tree!`)
-
-	return {
-		success: treeLeafFunc(gameObject) as boolean,
-		command: leaf.toString()
-	};
-}
-
 export function Run<TTreeImplementation, TGameObject>(
 	tree: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation,
 	treeImpl: TTreeImplementation,
 	gameObject: TGameObject
 ): IRunResult {
-
-	let result = {
+	let result: IRunResult = {
 		success: false,
 		command: ''
 	};
@@ -30,7 +18,7 @@ export function Run<TTreeImplementation, TGameObject>(
 	}
 
 	if (tree.type === 'selector') {
-		for (const childNode of tree.childNodes) {
+		for (const childNode of tree.nodes) {
 			result = Run(childNode, treeImpl, gameObject);
 			if (result.success)
 				return result;
@@ -39,7 +27,7 @@ export function Run<TTreeImplementation, TGameObject>(
 	}
 
 	if (tree.type === 'sequence') {
-		for (const childNode of tree.childNodes) {
+		for (const childNode of tree.nodes) {
 			result = Run(childNode, treeImpl, gameObject)
 			if (!result.success)
 				return result;
@@ -52,4 +40,15 @@ export function Run<TTreeImplementation, TGameObject>(
 
 export function isLeaf<TTreeImplementation, TGameObject>(node: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation): node is keyof TTreeImplementation {
 	return typeof (node) === 'string';
+}
+
+export function Execute<TTreeImplementation, TGameObject>(treeImpl: TTreeImplementation, gameObject: TGameObject, leaf: keyof TTreeImplementation): IRunResult {
+	const treeLeafFunc = treeImpl[leaf];
+	if (!isFunction(treeLeafFunc))
+		throw new Error(`'${leaf.toString()}' is not a function on this tree!`)
+
+	return {
+		success: treeLeafFunc(gameObject) as boolean,
+		command: leaf.toString()
+	};
 }

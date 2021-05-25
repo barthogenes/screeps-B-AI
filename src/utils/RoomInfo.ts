@@ -1,9 +1,4 @@
 
-export function GetSourcesInRoom(room: Room): Source[]
-{
-	return room.find(FIND_SOURCES);
-}
-
 export function GetExtensionsCountInRoom(room: Room): number
 {
 	const extensions = room.find<StructureExtension>(FIND_MY_STRUCTURES, {
@@ -15,32 +10,7 @@ export function GetExtensionsCountInRoom(room: Room): number
 	return extensions.length + extensionConstructionSites.length;
 }
 
-export function GetConstructionSites(room: Room): ConstructionSite[]
-{
-	return room.find(FIND_MY_CONSTRUCTION_SITES);
-}
-
-export function GetRandomPositionInAreaAroundObject<T extends keyof AllLookAtTypes>(obj: RoomObject, range: number):
-	{ x: number, y: number }
-{
-	const area = GetAreaAroundObject(obj, range);
-	const randomIndex = randomIntFromInterval(0, area.length - 1);
-	return area[randomIndex];
-}
-
-function GetAreaAroundObject(obj: RoomObject, range: number): LookForAtAreaResultArray<Terrain, 'terrain'>
-{
-	return obj.room!.lookForAtArea(
-		'terrain',
-		obj.pos.y - range,
-		obj.pos.x - range,
-		obj.pos.y + range,
-		obj.pos.x + range,
-		true
-	);
-}
-
-function randomIntFromInterval(min: number, max: number): number
+export function RandomNumberInRange(min: number, max: number): number
 {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }

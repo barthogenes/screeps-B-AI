@@ -4,13 +4,14 @@
 		"module": "CommonJs",
 		"typeRoots": [
 			"./node_modules/@types",
-			"./libs"
+			"./libs",
+			"./src"
 		],
 		"types": [
 			"screeps",
 			"mocha",
-			"screepsExtensions",
-			"Traveler"
+			"Traveler",
+			"extensions"
 		],
 	}
 }

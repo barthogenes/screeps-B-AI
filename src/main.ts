@@ -1,60 +1,52 @@
-import { BuilderTree } from 'behavior/build/BuilderTree';
-import { BuilderTreeImplementation } from 'behavior/build/BuilderTreeImplementation';
-import { HarvesterTree } from 'behavior/harvest/HarvesterTree';
-import { HarvesterTreeImplementation } from 'behavior/harvest/HarvesterTreeImplementation';
-import { SpawnerTree } from 'behavior/spawn/SpawnerTree';
-import { SpawnerTreeImplementation } from 'behavior/spawn/SpawnerTreeImplementation';
-import { UpgraderTree } from 'behavior/upgrade/UpgraderTree';
-import { UpgraderTreeImplementation } from 'behavior/upgrade/UpgraderTreeImplementation';
-import { IRunResult, Run } from 'runner/runner';
+import { BuilderTree, BuilderTreeImplementation, getBuilderInfo } from 'behavior/roles/builder';
+import { getHarvesterInfo, HarvesterTree, HarvesterTreeImplementation } from 'behavior/roles/harvester';
+import { getUpgraderInfo, UpgraderTree, UpgraderTreeImplementation } from 'behavior/roles/upgrader';
+import { SpawnCreeps } from 'behavior/spawn/spawnCreeps';
+import { IRunResult, Run } from 'runner/Runner';
+import { UpdateConstructionSites } from 'utils/ConstructionHelper';
 import { ErrorMapper } from 'utils/ErrorMapper';
-import { GarbageCollect } from 'utils/Memory';
+import { GetMyCreeps, GetMyRooms, GetMySpawns } from 'utils/GameUtil';
+import { GarbageCollect } from 'utils/MemoryUtil';
+import '../libs/Traveler/Traveler';
+import './extensions/all';
 
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-	console.log(`Current game tick is ${Game.time}`);
 	GarbageCollect();
 
-	RunSpawnTrees();
+	const rooms = GetMyRooms();
+	for (const room of rooms) {
+		UpdateConstructionSites(room);
+	}
 
-	for (const name in Game.creeps) {
-		const creep = Game.creeps[name];
-		if (!creep.my) {
+	const spawns = GetMySpawns();
+	for (const spawn of spawns) {
+		SpawnCreeps(spawn);
+	}
+
+	const creeps = GetMyCreeps();
+	for (const creep of creeps) {
+		if (creep.spawning)
 			continue;
-		}
+
 		let result: IRunResult;
 		switch (creep.memory.role) {
 			case 'harvester': {
-				const harvesterTree = new HarvesterTree(creep);
-				result = Run(harvesterTree.HarvestOrBringBack(), HarvesterTreeImplementation, harvesterTree.getObject());
-				break;
-			}
-			case 'upgrader': {
-				const upgraderTree = new UpgraderTree(creep);
-				result = Run(upgraderTree.UpgradeOrGetEnergy(), UpgraderTreeImplementation, upgraderTree.getObject());
+				result = Run(HarvesterTree, HarvesterTreeImplementation, getHarvesterInfo(creep));
 				break;
 			}
 			case 'builder': {
-				const builderTree = new BuilderTree(creep);
-				result = Run(builderTree.BuildOrGetEnergy(), BuilderTreeImplementation, builderTree.getObject());
+				result = Run(BuilderTree, BuilderTreeImplementation, getBuilderInfo(creep));
+				break;
+			}
+			case 'upgrader': {
+				result = Run(UpgraderTree, UpgraderTreeImplementation, getUpgraderInfo(creep));
 				break;
 			}
 		}
 
 		if (!result.success)
-			console.log(`${creep.name} with role ${creep.memory.role} failed on task ${result.command}!`);
+			console.log(`'${creep.name}' with role '${creep.memory.role}' failed on task '${result.command}'!`);
 	}
 });
-
-function RunSpawnTrees() {
-	for (const name in Game.spawns) {
-		const spawn = Game.spawns[name];
-		if (!spawn.my) {
-			continue;
-		}
-
-		const spawnerTree = new SpawnerTree(spawn);
-		Run(spawnerTree.ShouldSpawn(), SpawnerTreeImplementation, spawnerTree.getObject());
-	}
-}
