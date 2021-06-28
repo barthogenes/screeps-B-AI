@@ -1,11 +1,12 @@
+import { isExtension } from './TypeGuards';
 
 export function GetExtensionsCountInRoom(room: Room): number
 {
 	const extensions = room.find<StructureExtension>(FIND_MY_STRUCTURES, {
-		filter: (s) => s.structureType === 'extension'
+		filter: isExtension
 	});
 	const extensionConstructionSites = room.find(FIND_MY_CONSTRUCTION_SITES, {
-		filter: (s) => s.structureType === 'extension'
+		filter: isExtension
 	});
 	return extensions.length + extensionConstructionSites.length;
 }

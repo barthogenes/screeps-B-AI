@@ -1,18 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { assert } from 'chai';
-import { BuildList, GetBuildList } from '../../../src/utils/RoomInfo';
-import { Game, Memory } from '../mock';
+import { BuildList, GetBuildList } from './RoomInfo';
 
 describe('RoomInfo', () =>
 {
-	beforeEach(() =>
-	{
-		// @ts-ignore
-		global.Game = _.clone(Game);
-		// @ts-ignore
-		global.Memory = _.clone(Memory);
-	});
-
 	describe('GetBuildList', () =>
 	{
 		const controllerLevels: [number, BuildList][] = [
@@ -191,7 +180,7 @@ describe('RoomInfo', () =>
 				const buildListForCurrentLevel = GetBuildList(controllerLevel);
 
 				// Assert
-				assert.deepEqual(buildListForCurrentLevel, expectedBuildList);
+				expect(buildListForCurrentLevel).toStrictEqual(expectedBuildList);
 			});
 		});
 	});

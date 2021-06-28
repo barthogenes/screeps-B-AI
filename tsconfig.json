@@ -2,8 +2,7 @@
 	"compilerOptions": {
 		"module": "esnext",
 		"lib": [
-			"esnext",
-			"DOM",
+			"esnext"
 		],
 		"target": "es2017",
 		"moduleResolution": "Node",
@@ -15,6 +14,9 @@
 		"noImplicitReturns": true,
 		"allowSyntheticDefaultImports": true,
 		"allowUnreachableCode": false,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true,
+		"removeComments": false
 	},
 	"exclude": [
 		"node_modules"

@@ -2,11 +2,12 @@ import { BuilderTree, BuilderTreeImplementation, getBuilderInfo } from 'behavior
 import { getHarvesterInfo, HarvesterTree, HarvesterTreeImplementation } from 'behavior/roles/harvester';
 import { getUpgraderInfo, UpgraderTree, UpgraderTreeImplementation } from 'behavior/roles/upgrader';
 import { SpawnCreeps } from 'behavior/spawn/spawnCreeps';
-import { IRunResult, Run } from 'runner/Runner';
+import { ProtectRoom } from 'behavior/tower/protectRoom';
+import { IRunResult, Run } from 'runner/runner';
 import { UpdateConstructionSites } from 'utils/ConstructionHelper';
 import { ErrorMapper } from 'utils/ErrorMapper';
-import { GetMyCreeps, GetMyRooms, GetMySpawns } from 'utils/GameUtil';
-import { GarbageCollect } from 'utils/MemoryUtil';
+import { exportStats, GarbageCollect } from 'utils/MemoryUtil';
+import { isTower } from 'utils/TypeGuards';
 import '../libs/Traveler/Traveler';
 import './extensions/all';
 
@@ -15,17 +16,26 @@ import './extensions/all';
 export const loop = ErrorMapper.wrapLoop(() => {
 	GarbageCollect();
 
-	const rooms = GetMyRooms();
-	for (const room of rooms) {
-		UpdateConstructionSites(room);
-	}
-
-	const spawns = GetMySpawns();
+	const spawns = _.filter(Game.spawns, (s) => s.my);
+	const rooms = [];
 	for (const spawn of spawns) {
+		if (rooms.findIndex(x => x.name === spawn.room.name) === -1) {
+			rooms.push(spawn.room);
+		}
 		SpawnCreeps(spawn);
 	}
 
-	const creeps = GetMyCreeps();
+	for (const room of rooms) {
+		UpdateConstructionSites(room);
+		const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
+			filter: isTower
+		})
+		for (const tower of towers) {
+			ProtectRoom(tower);
+		}
+	}
+
+	const creeps = _.filter(Game.creeps, (c) => c.my);
 	for (const creep of creeps) {
 		if (creep.spawning)
 			continue;
@@ -48,5 +58,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
 
 		if (!result.success)
 			console.log(`'${creep.name}' with role '${creep.memory.role}' failed on task '${result.command}'!`);
+
+		exportStats();
 	}
 });

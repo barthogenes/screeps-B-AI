@@ -4,9 +4,9 @@
 
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
 import clear from 'rollup-plugin-clear';
 import screeps from 'rollup-plugin-screeps';
-import typescript from 'rollup-plugin-typescript2';
 
 let cfg;
 const dest = process.env.DEST;
@@ -25,9 +25,8 @@ export default {
 	output: {
 		file: "dist/main.js",
 		format: "cjs",
-		sourcemap: true,
+		sourcemap: true
 	},
-	external: ['lodash'],
 	plugins: [
 		clear({ targets: ["dist"] }),
 		resolve(),

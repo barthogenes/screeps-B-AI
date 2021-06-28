@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { assert } from 'chai';
-import { Execute } from '../../../src/runner/Runner';
+import { Execute } from './runner';
 
 describe('runner', () =>
 {
@@ -21,9 +19,9 @@ describe('runner', () =>
 			const result = Execute(treeImpl, testObject, 'do something');
 
 			// Assert
-			assert.isTrue(testObject.test);
-			assert.isTrue(result.success);
-			assert.strictEqual(result.command, 'do something');
+			expect(testObject.test).toBe(true);
+			expect(result.success).toBe(true);
+			expect(result.command).toStrictEqual('do something');
 		});
 	});
 });

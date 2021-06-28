@@ -1,21 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { BuilderTree, BuilderTreeImplementation } from 'behavior/roles/builder';
-import { assert } from 'chai';
-import { Run } from '../../../src/runner/Runner';
-import { Game, Memory } from '../mock';
+import { Run } from '../../runner/runner';
+import { BuilderTree, BuilderTreeImplementation } from './builder';
 
 describe('Builder', () => {
-	beforeEach(() => {
-		// @ts-ignore
-		global.Game = _.clone(Game);
-		// @ts-ignore
-		global.Memory = _.clone(Memory);
-	});
-
 	it('builds constructionsite', () => {
 		// Arrange
 		const treeImpl: Partial<typeof BuilderTreeImplementation> = {
 			'are there construction sites that can be build?': () => true,
+			'can I build?': () => true,
 			'build': () => true,
 		};
 		const gameObject = {};
@@ -24,8 +15,8 @@ describe('Builder', () => {
 		const result = Run(BuilderTree, treeImpl as unknown as typeof BuilderTreeImplementation, gameObject);
 
 		// Assert
-		assert.isTrue(result.success);
-		assert.strictEqual(result.command, 'build');
+		expect(result.success).toBe(true);
+		expect(result.command).toStrictEqual('build');
 	});
 
 	it('upgrades controller if there are no construction sites', () => {
@@ -41,7 +32,7 @@ describe('Builder', () => {
 		const result = Run(BuilderTree, treeImpl as unknown as typeof BuilderTreeImplementation, gameObject);
 
 		// Assert
-		assert.isTrue(result.success);
-		assert.strictEqual(result.command, 'upgrade controller');
+		expect(result.success).toBe(true);
+		expect(result.command).toStrictEqual('upgrade controller');
 	});
 });

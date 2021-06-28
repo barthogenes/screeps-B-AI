@@ -1,17 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { GrabEnergy, GrabEnergyImplementation } from 'behavior/util/grabEnergy';
-import { assert } from 'chai';
-import { Run } from '../../../src/runner/Runner';
-import { Game, Memory } from '../mock';
+import { Run } from '../../runner/runner';
+import { GrabEnergy, GrabEnergyImplementation } from './grabEnergy';
 
 describe('GrabEnergy', () => {
-	beforeEach(() => {
-		// @ts-ignore
-		global.Game = _.clone(Game);
-		// @ts-ignore
-		global.Memory = _.clone(Memory);
-	});
-
 	it('is next to spawn', () => {
 		// Arrange
 		const treeImpl: Partial<typeof GrabEnergyImplementation> = {
@@ -24,8 +14,8 @@ describe('GrabEnergy', () => {
 		const result = Run(GrabEnergy, treeImpl as unknown as typeof GrabEnergyImplementation, gameObject);
 
 		// Assert
-		assert.isTrue(result.success);
-		assert.strictEqual(result.command, 'grab energy');
+		expect(result.success).toBe(true);
+		expect(result.command).toStrictEqual('grab energy');
 	});
 
 	it('should stay 3 spaces away if it is not allowed to grab energy', () => {
@@ -40,7 +30,7 @@ describe('GrabEnergy', () => {
 		const result = Run(GrabEnergy, treeImpl as unknown as typeof GrabEnergyImplementation, gameObject);
 
 		// Assert
-		assert.isTrue(result.success);
-		assert.strictEqual(result.command, 'move to somewhere away from spawn');
+		expect(result.success).toBe(true);
+		expect(result.command).toStrictEqual('move to somewhere away from spawn');
 	});
 });

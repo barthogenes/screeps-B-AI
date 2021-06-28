@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { SourceMapConsumer } from 'source-map';
 
 export class ErrorMapper {
@@ -44,14 +45,14 @@ export class ErrorMapper {
 
 				if (pos.line != null) {
 					if (pos.name) {
-						outStack += `\n    at ${pos.name} (${pos.source}:${pos.line}:${pos.column})`;
+						outStack += `\n    at ${pos.name} (${pos.source || 'null'}:${pos.line}:${pos.column || 'null'})`;
 					} else {
 						if (match[1]) {
 							// no original source file name known - use file name from given trace
-							outStack += `\n    at ${match[1]} (${pos.source}:${pos.line}:${pos.column})`;
+							outStack += `\n    at ${match[1]} (${pos.source || 'null'}:${pos.line}:${pos.column || 'null'})`;
 						} else {
 							// no original source file name known or in given trace - omit name
-							outStack += `\n    at ${pos.source}:${pos.line}:${pos.column}`;
+							outStack += `\n    at ${pos.source || 'null'}:${pos.line}:${pos.column || 'null'}`;
 						}
 					}
 				} else {

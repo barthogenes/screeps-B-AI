@@ -1,5 +1,4 @@
 import { ITree } from 'behavior/ITree';
-import { isFunction } from 'lodash';
 
 export interface IRunResult { success: boolean, command: string }
 
@@ -13,7 +12,7 @@ export function Run<TTreeImplementation, TGameObject>(
 		command: ''
 	};
 
-	if (isLeaf(tree)) {
+	if (!isTreeNode(tree)) {
 		return Execute(treeImpl, gameObject, tree);
 	}
 
@@ -38,13 +37,13 @@ export function Run<TTreeImplementation, TGameObject>(
 	return result;
 }
 
-export function isLeaf<TTreeImplementation, TGameObject>(node: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation): node is keyof TTreeImplementation {
-	return typeof (node) === 'string';
+export function isTreeNode<TTreeImplementation, TGameObject>(node: ITree<TGameObject, TTreeImplementation> | keyof TTreeImplementation): node is ITree<TGameObject, TTreeImplementation> {
+	return typeof (node) !== 'string';
 }
 
 export function Execute<TTreeImplementation, TGameObject>(treeImpl: TTreeImplementation, gameObject: TGameObject, leaf: keyof TTreeImplementation): IRunResult {
 	const treeLeafFunc = treeImpl[leaf];
-	if (!isFunction(treeLeafFunc))
+	if (!_.isFunction(treeLeafFunc))
 		throw new Error(`'${leaf.toString()}' is not a function on this tree!`)
 
 	return {
