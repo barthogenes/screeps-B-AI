@@ -29,7 +29,13 @@ function updateRoadNetwork (spawn: StructureSpawn, sources: Source[], controller
 	roadNetwork = getRoadNetworkForSpawn(spawn, sources, controller);
 
 	roadNetwork.forEach(pos => {
-		spawn.room.createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD);
+		// Place container instead of road before each source to enable container-mining.
+		if (sources.findIndex(s => s.pos.isNearTo(pos.x, pos.y)) !== -1)
+		{
+			spawn.room.createConstructionSite(pos.x, pos.y, STRUCTURE_CONTAINER);
+		} else {
+			spawn.room.createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD);
+		}
 	});
 }
 
