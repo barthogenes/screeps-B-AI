@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from 'behavior/ITree';
 import { Build, BuildImplementation, IBuildImplementation, IBuildInfo } from 'behavior/util/build';
 import { GrabEnergy, GrabEnergyImplementation, IGrabEnergyImplementation } from 'behavior/util/grabEnergy';
 import { ISpawnInteractionImplementation, ISpawnInteractionInfo, SpawnInteractionImplementation } from 'behavior/util/spawnInteraction';
@@ -29,14 +29,14 @@ export const BuilderTreeImplementation: IBuilderTreeImplementation & IBuildImple
 }
 
 export const BuilderTree: ITree<IBuildInfo & ISpawnInteractionInfo, typeof BuilderTreeImplementation> = {
-	type: 'selector',
+	type: SelectorNodeType,
 	nodes: [
 		{
-			type: 'sequence',
+			type: SequenceNodeType,
 			nodes: [
 				'are there construction sites that can be build?',
 				{
-					type: 'selector',
+					type: SelectorNodeType,
 					nodes: [
 						Build,
 						GrabEnergy

@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from 'behavior/ITree';
 
 export interface IHarvestInfo {
 	creep: Creep;
@@ -19,11 +19,11 @@ export const HarvestImplementation: IHarvestImplementation =
 };
 
 export const Harvest: ITree<IHarvestInfo, typeof HarvestImplementation> = {
-	type: 'sequence',
+	type: SequenceNodeType,
 	nodes: [
 		'can I carry some more?',
 		{
-			type: 'selector',
+			type: SelectorNodeType,
 			nodes: [
 				'try to harvest',
 				'move to source'

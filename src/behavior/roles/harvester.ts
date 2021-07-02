@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType } from 'behavior/ITree';
 import { DropOffEnergy, DropOffEnergyImplementation, IDropOffEnergyImplementation, IDropOffInfo } from 'behavior/util/dropOffEnergy';
 import { ExtensionInteractionImplementation, IExtensionInteractionImplementation } from 'behavior/util/extensionInteraction';
 import { Harvest, HarvestImplementation, IHarvestImplementation, IHarvestInfo } from 'behavior/util/harvest';
@@ -40,7 +40,7 @@ ITowerInteractionImplementation = {
 }
 
 export const HarvesterTree: ITree<IHarvestInfo & IDropOffInfo, typeof HarvesterTreeImplementation> = {
-	type: 'selector',
+	type: SelectorNodeType,
 	nodes: [
 		Harvest,
 		DropOffEnergy

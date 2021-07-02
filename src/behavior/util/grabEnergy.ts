@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from 'behavior/ITree';
 import { ISpawnInteractionImplementation, ISpawnInteractionInfo, SpawnInteractionImplementation } from './spawnInteraction';
 
 export interface IGrabEnergyImplementation {
@@ -13,14 +13,14 @@ export const GrabEnergyImplementation: IGrabEnergyImplementation & ISpawnInterac
 }
 
 export const GrabEnergy: ITree<ISpawnInteractionInfo, typeof GrabEnergyImplementation> = {
-	type: 'selector',
+	type: SelectorNodeType,
 	nodes: [
 		{
-			type: 'sequence',
+			type: SequenceNodeType,
 			nodes: [
 				'am I allowed to grab energy?',
 				{
-					type: 'selector',
+					type: SelectorNodeType,
 					nodes: [
 						'grab energy',
 						'move next to spawn'

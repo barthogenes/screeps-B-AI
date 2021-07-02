@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from 'behavior/ITree';
 
 export interface IRunResult { success: boolean, command: string }
 
@@ -16,7 +16,7 @@ export function Run<TTreeImplementation, TGameObject>(
 		return Execute(treeImpl, gameObject, tree);
 	}
 
-	if (tree.type === 'selector') {
+	if (tree.type === SelectorNodeType) {
 		for (const childNode of tree.nodes) {
 			result = Run(childNode, treeImpl, gameObject);
 			if (result.success)
@@ -25,7 +25,7 @@ export function Run<TTreeImplementation, TGameObject>(
 		return result;
 	}
 
-	if (tree.type === 'sequence') {
+	if (tree.type === SequenceNodeType) {
 		for (const childNode of tree.nodes) {
 			result = Run(childNode, treeImpl, gameObject)
 			if (!result.success)

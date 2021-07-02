@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from 'behavior/ITree';
 import { ExtensionInteractionImplementation, IExtensionInteractionImplementation, IExtensionInteractionInfo } from './extensionInteraction';
 import { ISpawnInteractionImplementation, ISpawnInteractionInfo, SpawnInteractionImplementation } from './spawnInteraction';
 import { ITowerInteractionImplementation, ITowerInteractionInfo, TowerInteractionImplementation } from './towerInteraction';
@@ -29,14 +29,14 @@ export const DropOffEnergyImplementation: IDropOffEnergyImplementation & ISpawnI
 }
 
 export const DropOffEnergy: ITree<IDropOffInfo, typeof DropOffEnergyImplementation> = {
-	type: 'selector',
+	type: SelectorNodeType,
 	nodes: [
 		{
-			type: 'sequence',
+			type: SequenceNodeType,
 			nodes: [
 				'can I drop off my stuff at a not full tower?',
 				{
-					type: 'selector',
+					type: SelectorNodeType,
 					nodes: [
 						'transfer to empty tower',
 						'move next to empty tower'
@@ -45,11 +45,11 @@ export const DropOffEnergy: ITree<IDropOffInfo, typeof DropOffEnergyImplementati
 			]
 		},
 		{
-			type: 'sequence',
+			type: SequenceNodeType,
 			nodes: [
 				'can I drop off my stuff at a not full extension?',
 				{
-					type: 'selector',
+					type: SelectorNodeType,
 					nodes: [
 						'transfer to empty extension',
 						'move next to empty extension'
@@ -58,11 +58,11 @@ export const DropOffEnergy: ITree<IDropOffInfo, typeof DropOffEnergyImplementati
 			]
 		},
 		{
-			type: 'sequence',
+			type: SequenceNodeType,
 			nodes: [
 				'can I drop off my stuff at the spawn?',
 				{
-					type: 'selector',
+					type: SelectorNodeType,
 					nodes: [
 						'transfer to spawn',
 						'move next to spawn'

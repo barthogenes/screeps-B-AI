@@ -1,4 +1,4 @@
-import { ITree } from '../ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from '../ITree';
 import { ISpawnInteractionInfo } from './spawnInteraction';
 
 export interface IUpgradeControllerImplementation {
@@ -24,11 +24,11 @@ export const UpgradeControllerImplementation: IUpgradeControllerImplementation =
 }
 
 export const UpgradeController: ITree<ISpawnInteractionInfo, typeof UpgradeControllerImplementation> = {
-	type: 'sequence',
+	type: SequenceNodeType,
 	nodes: [
 		'do I have energy with me?',
 		{
-			type: 'selector',
+			type: SelectorNodeType,
 			nodes: [
 				'upgrade controller',
 				'move to controller'

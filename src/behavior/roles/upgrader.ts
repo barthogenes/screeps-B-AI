@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType } from 'behavior/ITree';
 import { IBuildInfo } from 'behavior/util/build';
 import { GrabEnergy, GrabEnergyImplementation, IGrabEnergyImplementation } from 'behavior/util/grabEnergy';
 import { ISpawnInteractionImplementation, ISpawnInteractionInfo, SpawnInteractionImplementation } from 'behavior/util/spawnInteraction';
@@ -19,7 +19,7 @@ export const UpgraderTreeImplementation: IUpgradeControllerImplementation & IGra
 }
 
 export const UpgraderTree: ITree<IBuildInfo & ISpawnInteractionInfo, typeof UpgraderTreeImplementation> = {
-	type: 'selector',
+	type: SelectorNodeType,
 	nodes: [
 		UpgradeController,
 		GrabEnergy

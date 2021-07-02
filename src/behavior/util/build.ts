@@ -1,4 +1,4 @@
-import { ITree } from 'behavior/ITree';
+import { ITree, SelectorNodeType, SequenceNodeType } from 'behavior/ITree';
 
 export interface IBuildInfo {
 	creep: Creep;
@@ -19,11 +19,11 @@ export const BuildImplementation: IBuildImplementation = {
 }
 
 export const Build: ITree<IBuildInfo, typeof BuildImplementation> = {
-	type: 'sequence',
+	type: SequenceNodeType,
 	nodes: [
 		'can I build?',
 		{
-			type: 'selector',
+			type: SelectorNodeType,
 			nodes: [
 				'build',
 				'move to construction site'

@@ -32,7 +32,7 @@ Room.prototype.countCreepsWithRole = (role: CreepRole) => {
 
 Room.prototype.countCreepsAssignedToSource = (sourceID: Id<Source>) => {
 	return GetCreepMemories().reduce((count, creepMemory) => {
-		if (sourceID === creepMemory.source)
+		if (creepMemory.source === sourceID)
 			return count + 1;
 
 		return count;
