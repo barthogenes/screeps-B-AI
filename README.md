@@ -1,35 +1,37 @@
+# My Screeps AI
+
 [![made-for-VSCode](https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg)](https://code.visualstudio.com/)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/barthogenes/screeps-b-ai)
 ![GitHub](https://img.shields.io/github/license/barthogenes/screeps-b-ai)
 
-# My Screeps AI
-
 Based on the [screeps-typescript-starter](https://github.com/screepers/screeps-typescript-starter) template.
 
 Features:
- - Built on a self made implementation of [Behavior Trees](https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php).
- - Barebones energy harvesting.
- - Road placement.
- - Random extension placement.
- - Auto-building of construction sites.
- - Auto-controller upgrading.
- - Automatically upgrades creeps based on the rooms max energy capability.
+
+- Built on a self made implementation of [Behavior Trees](https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php).
+- Barebones energy harvesting.
+- Road placement.
+- Random extension placement.
+- Auto-building of construction sites.
+- Auto-controller upgrading.
+- Automatically upgrades creeps based on the rooms max energy capability.
 
 Upcoming features:
- - Update energy harvesting code to [Container Mining](https://wiki.screepspl.us/index.php/Static_Harvesting).
- - Room defense.
- - Better extension placement.
- - Ticks to RCL 3 benchmarking.
+
+- Update energy harvesting code to [Drop Mining](https://wiki.screepspl.us/index.php/Static_Harvesting#Drop_Mining).
+- Room defense.
+- Better extension placement.
+- Ticks to RCL 3 benchmarking.
 
 ## Basic Usage
 
 You will need:
 
- - [Node.JS](https://nodejs.org/en/download) (>= 8.0.0)
- - A Package Manager ([Yarn](https://yarnpkg.com/en/docs/getting-started) or [npm](https://docs.npmjs.com/getting-started/installing-node))
- - Rollup CLI (Optional, install via `npm install -g rollup`)
- - Python 2 (for node-gyp, [Python 3 is not supported](https://github.com/nodejs/node-gyp/issues/193))
- - Build tools (`apt install build-essential` for Ubuntu, [Visual Studio](https://www.visualstudio.com/vs/) for Windows, etc)
+- [Node.JS](https://nodejs.org/en/download) (>= 8.0.0)
+- A Package Manager ([Yarn](https://yarnpkg.com/en/docs/getting-started) or [npm](https://docs.npmjs.com/getting-started/installing-node))
+- Rollup CLI (Optional, install via `npm install -g rollup`)
+- Python 2 (for node-gyp, [Python 3 is not supported](https://github.com/nodejs/node-gyp/issues/193))
+- Build tools (`apt install build-essential` for Ubuntu, [Visual Studio](https://www.visualstudio.com/vs/) for Windows, etc)
 
 Open the repo folder in your terminal and run your package manager to install install the required packages and TypeScript declaration files:
 
@@ -55,7 +57,7 @@ You can use `-cw` instead of `-c` to automatically re-run when your source code 
 
 Finally, there are also NPM scripts that serve as aliases for these commands in `package.json` for IDE integration. Running `npm run push-main` is equivalent to `rollup -c --environment DEST:main`, and `npm run watch-sim` is equivalent to `rollup -cw --dest sim`.
 
-#### Important! To upload code to a private server, you must have [screepsmod-auth](https://github.com/ScreepsMods/screepsmod-auth) installed and configured!
+#### Important! To upload code to a private server, you must have [screepsmod-auth](https://github.com/ScreepsMods/screepsmod-auth) installed and configured
 
 ## Typings
 

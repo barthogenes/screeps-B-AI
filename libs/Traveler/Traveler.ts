@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 /**
  * To start using Traveler, require it in main.js:
  * Example: var Traveler = require('Traveler.js');

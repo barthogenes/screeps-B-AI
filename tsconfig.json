@@ -16,7 +16,8 @@
 		"allowUnreachableCode": false,
 		"forceConsistentCasingInFileNames": true,
 		"importHelpers": true,
-		"removeComments": false
+		"removeComments": false,
+		"allowUmdGlobalAccess": true
 	},
 	"exclude": [
 		"node_modules"

@@ -17,5 +17,6 @@ The simple steps of contributing to any GitHub project are as follows:
 5. Create a [Pull Request](https://github.com/barthogenes/screeps-b-ai/pulls)!
 
 Please check the following things before submitting a PR:
+
 * Your code must pass all of the linter checks (`npm run lint`)
 * All tests pass
