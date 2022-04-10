@@ -18,7 +18,10 @@
 		"watch-season": "rollup -cw --environment DEST:season",
 		"watch-sim": "rollup -cw --environment DEST:sim",
 		"start-private-server": "docker-compose up -d",
-		"open-private-server-cli": "docker-compose exec screeps screeps-launcher cli"
+		"open-private-server-cli": "docker-compose exec screeps screeps-launcher cli",
+		"prepare": "husky install",
+		"commit": "cz",
+		"release": "standard-version"
 	},
 	"repository": {
 		"type": "git",
@@ -46,13 +49,17 @@
 		"@typescript-eslint/eslint-plugin": "^5.18.0",
 		"@typescript-eslint/parser": "^5.18.0",
 		"@typescript-eslint/typescript-estree": "^5.18.0",
+		"commitizen": "^4.2.4",
+		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^8.13.0",
 		"eslint-import-resolver-typescript": "^2.7.1",
 		"eslint-plugin-import": "^2.24.0",
+		"husky": "^7.0.0",
 		"jest": "^27.5.1",
 		"rollup": "^2.56.2",
 		"rollup-plugin-clear": "^2.0.7",
 		"rollup-plugin-screeps": "^1.0.1",
+		"standard-version": "^9.3.2",
 		"ts-jest": "^27.1.4",
 		"ts-node": "^10.2.0",
 		"tsconfig-paths": "^3.10.1",
@@ -62,5 +69,15 @@
 	"dependencies": {
 		"lodash": "^4.17.21",
 		"source-map": "~0.6.1"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"husky": {
+		"hooks": {
+			"prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
+		}
 	}
 }

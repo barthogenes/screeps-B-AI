@@ -3,6 +3,7 @@
 [![made-for-VSCode](https://img.shields.io/badge/Made%20for-VSCode-1f425f.svg)](https://code.visualstudio.com/)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/barthogenes/screeps-b-ai)
 ![GitHub](https://img.shields.io/github/license/barthogenes/screeps-b-ai)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Based on the [screeps-typescript-starter](https://github.com/screepers/screeps-typescript-starter) template.
 
