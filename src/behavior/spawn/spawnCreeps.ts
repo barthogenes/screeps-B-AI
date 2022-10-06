@@ -21,16 +21,6 @@ export const SpawnCreeps = (spawn: StructureSpawn): void => {
 		return;
 	}
 
-	if (spawn.room.countCreepsWithRole('builder') < 2) {
-		spawn.spawnCreep(bodyParts, `creep${Game.time}`, {
-			memory: {
-				role: 'builder',
-				spawn: spawn.id
-			}
-		});
-		return;
-	}
-
 	if (spawn.room.countCreepsWithRole('upgrader') < 3) {
 		spawn.spawnCreep(bodyParts, `creep${Game.time}`, {
 			memory: {
@@ -42,4 +32,14 @@ export const SpawnCreeps = (spawn: StructureSpawn): void => {
 	}
 
 	spawn.memory.allowWithdraw = spawn.store.energy >= 50;
+
+	if (spawn.room.countCreepsWithRole('builder') < 2) {
+		spawn.spawnCreep(bodyParts, `creep${Game.time}`, {
+			memory: {
+				role: 'builder',
+				spawn: spawn.id
+			}
+		});
+		return;
+	}
 }
